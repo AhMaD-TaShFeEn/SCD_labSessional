@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: api gateway
+      run: cd api-gateway, docker build -t api-gateway .
+    - name: payment gateway
+      run: cd payment-services, docker build -t payment-services . 
+    - name: customer gateway
+      run: cd customer-services, docker build -t customer-services .
+    - name: inventory gateway
+      run: cd inventory-services, docker build -t inventory-services .
+    - name: orders gateway
+      run: cd order-services, docker build -t order-services .
+    - name: menu gateway
+      run: cd menu-services, docker build -t menu-services .
